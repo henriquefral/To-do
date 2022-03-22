@@ -14,7 +14,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        return Todo::all();
     }
 
     /**
@@ -35,7 +35,15 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,
+        [
+            'title' => 'required'
+        ],
+        [
+            'title.required' => 'To-do input field is required'
+        ]
+        );
+        Todo::create($request->all());
     }
 
     /**
@@ -67,9 +75,11 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, $id)
     {
-        //
+        $todo = Todo::findOrFail($id);
+        $todo->update($request->all());
+        $todo->save();
     }
 
     /**
@@ -78,8 +88,10 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Todo $todo)
+    public function destroy($id)
     {
-        //
+        $todo = Todo::findOrFail($id);
+        $todo->delete();
+        return Todo::all();
     }
 }
