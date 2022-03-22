@@ -11,5 +11,12 @@ body{
     width:100vw;
     height:100vh;
     background: radial-gradient(circle, rgba(134,56,65,1) , rgba(75,45,45,1));
+}
 
+.todo svg:hover{
+    cursor: pointer;
+}
+
+.title {
+    color:#46b077;
 }
